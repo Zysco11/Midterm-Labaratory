@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+
+namespace LastNameFirstNameInitials
+{
+    struct StudentRequest
+    {
+        public string StudentNumber;
+        public string StudentName;
+        public string RequestType;
+    }
+
+    class Problem3_Queue
+    {
+        static void Main()
+        {
+            Queue<StudentRequest> requestQueue = new Queue<StudentRequest>();
+            bool running = true;
+
+            while (running)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("STUDENT REQUEST QUEUE");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Add Request");
+                Console.WriteLine("2. View Pending Requests");
+                Console.WriteLine("3. Process Request");
+                Console.Write("4. Exit Enter choice: ");
+                
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        StudentRequest req;
+                        Console.Write("Enter Student Number: ");
+                        req.StudentNumber = Console.ReadLine();
+                        Console.Write("Enter Student Name: ");
+                        req.StudentName = Console.ReadLine();
+                        Console.Write("Enter Request Type: ");
+                        req.RequestType = Console.ReadLine();
+                        
+                        requestQueue.Enqueue(req);
+                        Console.WriteLine("\nRequest added successfully!\n");
+                        break;
+                        
+                    case "2":
+                        if (requestQueue.Count == 0)
+                        {
+                            Console.WriteLine("No pending requests.\n");
+                        }
+                        else
+                        {
+                            foreach (StudentRequest item in requestQueue)
+                            {
+                                Console.WriteLine($"Student Number: {item.StudentNumber}");
+                                Console.WriteLine($"Student Name: {item.StudentName}");
+                                Console.WriteLine($"Request Type: {item.RequestType}");
+                                Console.WriteLine();
+                            }
+                        }
+                        break;
+                        
+                    case "3":
+                        if (requestQueue.Count == 0)
+                        {
+                            Console.WriteLine("No pending requests.\n");
+                        }
+                        else
+                        {
+                            StudentRequest processed = requestQueue.Dequeue();
+                            Console.WriteLine($"Student Number: {processed.StudentNumber}");
+                            Console.WriteLine($"Student Name: {processed.StudentName}");
+                            Console.WriteLine($"Request Type: {processed.RequestType}");
+                            Console.WriteLine("\nRequest processed successfully!\n");
+                        }
+                        break;
+                        
+                    case "4":
+                        running = false;
+                        break;
+                }
+            }
+        }
+    }
+}
